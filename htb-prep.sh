@@ -4,7 +4,7 @@
 echo "Enter name of the box to solve:"
 read boxname
 echo "Enter ip address of the $boxname:"
-read ipaddress
+read boxipad
 
 # create directories
 mkdir -p ~/hackthebox/$boxname/{wordlist,nmap,exploits,downloads,uploads} &&
@@ -15,11 +15,14 @@ touch ~/hackthebox/$boxname/$boxname.org &&
 # copy some files
 cp ~/hackthebox/commands.txt ~/hackthebox/$boxname/ &&
 
+# 
+
 # search and replace assoc array
 declare -A srarray
 srarray=(
     [%%BOX_NAME%%]=$boxname
-    [%%IP_ADDRESS%%]=$ipaddress
+    [%%BOX_IPAD%%]=$boxipad
+    [%%LOCAL_IP%%]=$(ifconfig | grep -A 1 'tun0' | tail -1 | awk '{$1=$1;print}' | cut -d " " -f 2)
 )
 
 # search and replace loop
@@ -35,5 +38,5 @@ sr() {
 sr &&
 
 # hosts file add ipaddress and boxname
-echo "$ipaddress $boxname" | sudo tee -a /etc/hosts
+echo "$boxipad $boxname" | sudo tee -a /etc/hosts
 
