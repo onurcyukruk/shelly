@@ -1,0 +1,2 @@
+# shelly
+Quick shell scripts 
