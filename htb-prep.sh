@@ -15,12 +15,14 @@ touch ~/hackthebox/$boxname/$boxname.org &&
 # copy some files
 cp ~/hackthebox/commands.txt ~/hackthebox/$boxname/ &&
 
+# search and replace assoc array
 declare -A srarray
 srarray=(
     [%%BOX_NAME%%]=$boxname
     [%%IP_ADDRESS%%]=$ipaddress
 )
 
+# search and replace loop
 sr() {
     # Loop the config array
     for i in "${!srarray[@]}"
@@ -32,5 +34,6 @@ sr() {
 }
 sr &&
 
+# hosts file add ipaddress and boxname
 echo "$ipaddress $boxname" | sudo tee -a /etc/hosts
 
