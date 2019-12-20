@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# prep script for hackthebox machines creates directories, searches and replaces
+# prep & organization script for hackthebox machines. Creates directories, searches and replaces
 # ip address/name of of the box in common commands used in recon etc.
 echo "Enter name of the box to solve:"
 read boxname
-echo "Enter ip address of the $boxname:"
+echo "Enter ip address of the boxname:"
 read boxipad
 
 # create directories
@@ -17,7 +17,7 @@ cp ~/hackthebox/commands.txt ~/hackthebox/$boxname/ &&
 
 # 
 
-# search and replace assoc array
+# search and replace array
 declare -A srarray
 srarray=(
     [%%BOX_NAME%%]=$boxname
