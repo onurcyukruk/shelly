@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # prep & organization script for hackthebox machines. Creates directories, searches and replaces
 # ip address/name of of the box in common commands used in recon etc.
-echo "Enter name of the box to solve:"
+echo "Enter name of the box : "
 read boxname
-echo "Enter ip address of the boxname:"
+echo "Enter ip address of $boxname: "
 read boxipad
 
 # create directories
