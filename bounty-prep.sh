@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # prep & organization script for hackthebox machines. Creates directories, searches and replaces
 # ip address/name of of the box in common commands used in recon etc.
-echo "Enter name of the box : "
-read boxname
-echo "Enter ip address of $boxname: "
-read boxipad
+echo "Enter name of the platform : "
+read platname
+echo "Enter name of the program: "
+read progname
 
 # create directories
-mkdir -p ~/hackthebox/$boxname/{wordlist,nmap,exploits,downloads,uploads} &&
+mkdir -p ~/$platname/$progname/{wordlist,nmap,exploits,downloads,uploads} &&
 
 # create file for taking notes
 touch ~/hackthebox/$boxname/$boxname.org &&
@@ -39,4 +39,5 @@ sr &&
 
 # hosts file add ipaddress and boxname
 echo "$boxipad $boxname" | sudo tee -a /etc/hosts
+
 
