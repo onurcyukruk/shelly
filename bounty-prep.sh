@@ -1,43 +1,28 @@
 #!/usr/bin/env bash
-# prep & organization script for hackthebox machines. Creates directories, searches and replaces
-# ip address/name of of the box in common commands used in recon etc.
-echo "Enter name of the platform : "
-read platname
+
+# PS3='Please choose platform: '
+# options=("hackerone" "bugcrowd" )
+# select opt in "${options[@]}"
+# do
+#     case $opt in
+#         "hackerone")
+#             platname="hackerone"
+# 	    break
+#             ;;
+#         "bugcrowd")
+#             platname="bugcrowd"
+# 	    break
+#             ;;
+#         *) echo "invalid option $REPLY";;
+#     esac
+# done
+
 echo "Enter name of the program: "
 read progname
 
 # create directories
-mkdir -p ~/$platname/$progname/{wordlist,nmap,exploits,downloads,uploads} &&
+mkdir -p ~/dailywork/bounty/{skellfs,recon/$progname/{assets,amass,nmap}}
 
-# create file for taking notes
-touch ~/hackthebox/$boxname/$boxname.org &&
-
-# copy some files
-cp ~/gelgit/shelly/commands.txt ~/hackthebox/$boxname/ &&
-
-# 
-
-# search and replace array
-declare -A srarray
-srarray=(
-    [%%BOX_NAME%%]=$boxname
-    [%%BOX_IPAD%%]=$boxipad
-    [%%LOCAL_IP%%]=$(ifconfig | grep -A 1 'tun0' | tail -1 | awk '{$1=$1;print}' | cut -d " " -f 2)
-)
-
-# search and replace loop
-sr() {
-    # Loop the config array
-    for i in "${!srarray[@]}"
-    do
-        search=${i}
-        replace=${srarray[$i]}
-        sed -i "s/${search}/${replace}/g" ~/hackthebox/$boxname/commands.txt
-    done
-}
-sr &&
-
-# hosts file add ipaddress and boxname
-echo "$boxipad $boxname" | sudo tee -a /etc/hosts
-
-
+# copy and create some files
+cp ~/dailywork/bounty/skellfs/amass* ~/dailywork/bounty/recon/$progname/amass/ &&
+cp ~/dailywork/bounty/skellfs/root* ~/dailywork/bounty/recon/$progname/
