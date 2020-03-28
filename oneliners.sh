@@ -48,4 +48,3 @@ rsync -a -v -e ssh /home/onur/gelgit/shelly onur@remkbox:/home/onur/
 
 # get subs from amass.log
 cat amass.json | jq -r ".name" > subs-active.txt
-

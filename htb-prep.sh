@@ -22,7 +22,7 @@ declare -A srarray
 srarray=(
     [%%BOX_NAME%%]=$boxname
     [%%BOX_IPAD%%]=$boxipad
-    [%%LOCAL_IP%%]=$(ifconfig | grep -A 1 'tun0' | tail -1 | awk '{$1=$1;print}' | cut -d " " -f 2)
+    [%%LOCAL_IP%%]=$(ip add | grep -A 1 'tun0' | grep inet | cut -d "/" -f 1 | awk '{$1=$1;print}' | cut -d " " -f 2)
 )
 
 # search and replace loop
