@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# nmap full port scan
+sudo nmap -sS -p- host
+
 # cleanup illegal ip addresses from addresses.txt
 grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' addresses.txt
-
 
 ####################################################################
 #SUBDOMAIN TAKEOVER
