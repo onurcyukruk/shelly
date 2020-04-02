@@ -13,7 +13,7 @@ mkdir -p ~/hackthebox/$boxname/{wordlist,nmap,exploits,downloads,uploads} &&
 touch ~/hackthebox/$boxname/$boxname.org &&
 
 # copy some files
-cp ~/gelgit/shelly/commands.txt ~/hackthebox/$boxname/ &&
+cp ~/gelgit/shelly/commands.sh ~/hackthebox/$boxname/ &&
 
 # 
 
@@ -32,7 +32,7 @@ sr() {
     do
         search=${i}
         replace=${srarray[$i]}
-        sed -i "s/${search}/${replace}/g" ~/hackthebox/$boxname/commands.txt
+        sed -i "s/${search}/${replace}/g" ~/hackthebox/$boxname/commands.sh
     done
 }
 sr &&
